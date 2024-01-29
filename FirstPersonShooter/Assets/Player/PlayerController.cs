@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Vector3 Accelerate(Vector3 wish_dir, Vector3 current_velocity, float max_speed)
+    private Vector3 Accelerate(Vector3 wish_dir, Vector3 current_velocity, float accel, float max_speed)
     {
         //Project current_velocity on the wish-dir
         float proj_speed = Vector3.Dot(current_velocity, wish_dir);
