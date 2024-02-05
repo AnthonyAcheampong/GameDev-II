@@ -63,7 +63,34 @@ public class PlayerController : MonoBehaviour
     {
         Look(); 
     }
+    private void FixedUpdate()
+    {
+        //find wish_dir
+        wish_dir = transform.right * move_input.x + transform.forward * move_input.y;
+        wish_dir = wish_dir.normalized;
 
+        //Move player if ground or in air
+        grounded = character_controller.isGrounded;
+        if (grounded)
+        {
+            player_velocity = MoveGround(wish_dir, player_velocity);
+        }
+        else
+        {
+            player_velocity = MoveAir(wish_dir, player_velocity);
+               
+        }
+
+        //Gravity
+        player_velocity.y -= gravity * Time.deltaTime;
+        if (grounded && player_velocity.y < 0)
+        {
+            player_velocity.y = -2;
+        }
+
+        character_controller.Move(player_velocity * Time.deltaTime);
+
+    }
     public void GetLookInput(InputAction.CallbackContext context)
     {
         look_input = context.ReadValue<Vector2>();
@@ -97,7 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if(grounded)
         {
-            //Do THIS LATER...
+            player_velocity.y = jump_impulse;
         }
     }
 
@@ -134,6 +161,9 @@ public class PlayerController : MonoBehaviour
 
         return Accelerate(wish_dir, new_velocity, acceleration, max_speed);
     }
-
+    private Vector3 MoveAir(Vector3 wish_dir, Vector3 current_velocity)
+    {
+        return Accelerate(wish_dir, current_velocity, acceleration, max_speed);
+    }
 
 }

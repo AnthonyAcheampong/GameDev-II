@@ -696,11 +696,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21bef2aed872a84b874c5b6db05e164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug_text: {fileID: 0}
+  debug_text: {fileID: 1578578234}
   cam: {fileID: 385748662}
   invert_x: 0
   invert_y: 0
   sensitivity: 0.432
+  max_speed: 6
+  acceleration: 60
+  gravity: 20
+  stop_speed: 0.5
+  jump_impulse: 10
+  friction: 4
 --- !u!143 &938832835
 CharacterController:
   m_ObjectHideFlags: 0
